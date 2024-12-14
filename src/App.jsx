@@ -3,7 +3,6 @@ import { useRoutes } from 'react-router-dom';
 import routes from 'virtual:generated-pages-react';
 import Layout from './components/layout';
 import DefaultPage from './pages/default';
-import './App.css'
 
 function App() {
 
