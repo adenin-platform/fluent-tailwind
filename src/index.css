@@ -7,7 +7,7 @@
 
 @variant dark (&:where(.dark, .dark *));
 
-@import "./theme.css";
+@import "./theme/theme.css";
 
 @layer base {
   *,
@@ -21,14 +21,12 @@
   */
 
   button,
-  [role="button"] {
+  [role='button'] {
     cursor: pointer;
   }
 
-  /*
-    Make sure disabled buttons don't get the pointer cursor.
-  */
-  :disabled {
+  button:disabled,
+  [role='button']:disabled {
     cursor: default;
   }
 }

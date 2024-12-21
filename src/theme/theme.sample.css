@@ -1,4 +1,7 @@
 
+/*
+  https://github.com/tailwindlabs/tailwindcss/blob/next/packages/tailwindcss/theme.css
+*/ 
 
 @theme {
   --color-background: var(--color-white);

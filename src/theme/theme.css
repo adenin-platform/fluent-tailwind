@@ -1,0 +1,16 @@
+/* Generated theme.css - to not modify directly */
+/* Timestamp: 2024-12-21T23:38:24.383Z */
+
+@theme {
+     --font-sans: 'Segoe UI','Segoe UI Web (West European)',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',sans-serif;
+    --color-primary: #1267b5;
+
+}
+
+@layer theme {
+  .dark {
+        --color-primary: #5a90dd;
+
+  }
+}
+
