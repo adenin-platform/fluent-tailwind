@@ -1,1 +1,34 @@
+
 @import "tailwindcss";
+
+/*
+@plugin "tailwindcss-animate";
+*/
+
+@variant dark (&:where(.dark, .dark *));
+
+@import "./theme.css";
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  /*
+    Restore pointer cursor for buttons.
+  */
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  /*
+    Make sure disabled buttons don't get the pointer cursor.
+  */
+  :disabled {
+    cursor: default;
+  }
+}

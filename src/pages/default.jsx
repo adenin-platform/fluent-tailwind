@@ -51,8 +51,8 @@ const Typography = () => {
           <h2 className="text-4xl font-semibold">Heading 2 (text-4xl)</h2>
           <h3 className="text-3xl font-medium">Heading 3 (text-3xl)</h3>
           <h4 className="text-2xl">Heading 4 (text-2xl)</h4>
-          <h5 className="text-xl">Heading 5 (text-xl)</h5>
-          <h6 className="text-lg">Heading 6 (text-lg)</h6>
+          <h5 className="text-xl text-foreground">Heading 5 (text-xl)</h5>
+          <h6 className="text-lg text-card-foreground">Heading 6 (text-lg)</h6>
         </div>
 
         <div className="space-y-4">
