@@ -1,4 +1,14 @@
 {
     "font-sans": "fontFamilyBase",
-    "color-primary": "colorBrandForeground1"
+    "color-foreground": "neutralPrimary",
+    "color-background": "white",
+    "color-primary": "themePrimary",
+    "color-primary-foreground": "white",
+    "color-destructive": "colorStatusDangerBackground3",
+    "color-destructive-foreground": "white",
+
+    "radius": "borderRadiusXLarge",
+    "radius-sm": "borderRadiusSmall",
+    "radius-md": "borderRadiusMedium",
+    "radius-lg": "borderRadiusLarge"
 }

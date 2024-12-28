@@ -11,7 +11,7 @@ interface ThemeData {
  */
 export default function themePlugin(): Plugin {
   const themePath = path.resolve('src/theme')
-  const jsonFiles = ['light.json', 'dark.json', 'theme.json']
+  const jsonFiles = ['fluentLight.json', 'fluentDark.json', 'SharepointBlueLight.json', 'SharepointBlueDark.json', 'theme.json']
 
   return {
     name: 'vite-plugin-theme-combiner',
@@ -48,20 +48,25 @@ export default function themePlugin(): Plugin {
 function generateThemeCSS(themePath: string): void {
   var themeVars: string = "";
   var darkVars: string = "";
-  const outputPath = path.join(themePath, 'theme.css')
+  const outputPath = path.join(themePath, 'theme.css');
 
   try {
-    // Read JSON files
-    const light: ThemeData = JSON.parse(fs.readFileSync(path.join(themePath, 'fluentLight.json'), 'utf-8'))
-    const dark: ThemeData = JSON.parse(fs.readFileSync(path.join(themePath, 'fluentDark.json'), 'utf-8'))
-    const theme: ThemeData = JSON.parse(fs.readFileSync(path.join(themePath, 'theme.json'), 'utf-8'))
+    const theme: ThemeData = JSON.parse(fs.readFileSync(path.join(themePath, 'theme.json'), 'utf-8'));
+    const light: ThemeData = JSON.parse(fs.readFileSync(path.join(themePath, 'fluentLight.json'), 'utf-8'));
+    const dark: ThemeData = JSON.parse(fs.readFileSync(path.join(themePath, 'fluentDark.json'), 'utf-8'));
+
+    // based on https://learn.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-theming/sharepoint-site-theming-json-schema
+    // https://fluentuipr.z22.web.core.windows.net/heads/master/theming-designer/index.html
+    const SharepointBlueDark: ThemeData = JSON.parse(fs.readFileSync(path.join(themePath, 'SharepointBlueDark.json'), 'utf-8'));
+    const SharepointBlueLight: ThemeData = JSON.parse(fs.readFileSync(path.join(themePath, 'SharepointBlueLight.json'), 'utf-8'));
+    
 
 
     for (const name in theme) {
-      themeVars = themeVars + createVar(name, theme[name], light);
+      themeVars = themeVars + createVar(name, theme[name], light, SharepointBlueLight);
 
       if (name.startsWith('color')) {
-        darkVars = darkVars + createVar(name, theme[name], dark);
+        darkVars = darkVars + createVar(name, theme[name], dark, SharepointBlueDark);
       }
     }
 
@@ -70,12 +75,12 @@ function generateThemeCSS(themePath: string): void {
 /* Timestamp: ${new Date().toISOString()} */
 
 @theme {
- ${themeVars}
+  ${themeVars}
 }
 
 @layer theme {
-  .dark {
-    ${darkVars}
+  .dark {    
+  ${darkVars}
   }
 }
 
@@ -87,8 +92,11 @@ function generateThemeCSS(themePath: string): void {
   } catch (error) {
     console.error('Error generating theme CSS:', error)
   }
-  function createVar(cssvar: string, token: string, fluentTheme: ThemeData): string {
+  function createVar(cssvar: string, token: string, fluentTheme: ThemeData, SharepointTheme:ThemeData): string {
+    
     var value: any = fluentTheme[token];
+    if (value === undefined) value = SharepointTheme[token]; // fallback to Sharepoint theme definition when not found in Fluent theme
+
     if (cssvar.startsWith('font')) value = (value as string).split(',').map(font => font.trim());
 
     return `    --${cssvar}: ${value};\n`;
